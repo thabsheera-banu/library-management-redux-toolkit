@@ -60,3 +60,4 @@ def user_login(request):
 class AllBooksListView(ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
