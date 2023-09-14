@@ -24,7 +24,7 @@ const BookList = () => {
     <Grid container spacing={2}>
       {books.map((book) => (
         <Grid item xs={12} sm={4} md={3} lg={3} key={book.id}>
-          <Card>
+          <Card style={{ backgroundColor: '#eee' }}>
             <CardHeader title={book.title} />
             <CardContent>
               <Typography variant="body2" color="textSecondary">

@@ -10,44 +10,48 @@ import { useSelector, useDispatch } from 'react-redux';
 import { clearAuth } from '../Redux/authSlice';
 
 export default function Navbar() {
-    
-    
-
     const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     const handleLogout = () => {
         dispatch(clearAuth()); 
         navigate('/signin'); 
-      };
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            All Books
-          </Typography>
-          {user ? (
-            // If the user is logged in
-            <Button color="error" onClick={handleLogout} >
-              Logout
-            </Button>
-          ) : (
-            // If the user is not logged in
-            <Button color="error">
-              <Link to="/signin">Login</Link>
-            </Button>
-        )}        
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
+    };
+
+    return (
+        <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static" style={{ backgroundColor: 'black' }}>
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ mr: 2 }}
+                    >
+                    </IconButton>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        All Books
+                    </Typography>
+                    {user ? (
+                        // If the user is logged in
+                        <>
+                            <Button color="inherit" component={Link} to="/dashboard">
+                                Dashboard
+                            </Button>
+                            <Button color="inherit" onClick={handleLogout} >
+                                Logout
+                            </Button>
+                        </>
+                    ) : (
+                        // If the user is not logged in
+                        <Button color="inherit" component={Link} to="/signin">
+                            Login
+                        </Button>
+                    )}
+                </Toolbar>
+            </AppBar>
+        </Box>
+    );
 }
