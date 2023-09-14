@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loginError, setLoginError] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -40,6 +41,8 @@ function Register() {
         })
         .catch((error) => {
           console.error(error);
+          setLoginError(true);
+
         });
     },
   });
@@ -94,6 +97,11 @@ function Register() {
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
             />
+            {loginError && (
+                      <Typography variant='body2' color='error'>
+                        Email is  Already Exist
+                      </Typography>
+                    )}
             <TextField
               fullWidth
               label='Address'
@@ -129,7 +137,7 @@ function Register() {
             <Button type='submit' variant='contained' color='primary'>
               Signup
             </Button>
-            <h5>Already have an  Account ....<Link to="/signin"> Register</Link></h5>
+            <h5>Already have an  Account ....<Link to="/signin"> Login</Link></h5>
 
           </form>
         </Paper>

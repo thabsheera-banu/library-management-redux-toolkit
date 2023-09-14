@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 const Signin = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
+  const [loginError, setLoginError] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -34,6 +35,7 @@ const Signin = () => {
         })
         .catch((error) => {
           console.error(error);
+          setLoginError(true);
         });
     },
   });
@@ -73,6 +75,11 @@ const headerstyle={margin:0}
                     error={formik.touched.password && Boolean(formik.errors.password)}
                     helperText={formik.touched.password && formik.errors.password}/>
                     <Button type='submit' variant='contained' color='primary'>Sign in</Button>
+                    {loginError && (
+                      <Typography variant='body2' color='error'>
+                        Incorrect username or password. Please try again.
+                      </Typography>
+                    )}
                     <h5>Dont Have an Account ....<Link to="/signup"> Register</Link></h5>
 
                 </form>
